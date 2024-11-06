@@ -10,7 +10,7 @@ Ensure you have the following installed:
 
 ## Setup
  
-1. Create the .env your environment variables.
+1. Create the .env with your environment variables.
 
 
 ## Deploying with AWS CDK
