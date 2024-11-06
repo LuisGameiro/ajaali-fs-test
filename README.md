@@ -1,6 +1,4 @@
-# Project Title
-
-Brief description of what your project does and its purpose.
+# AJAALI - Full Stack Developer Test
 
 ## Prerequisites
 
