@@ -1,0 +1,54 @@
+{% extends "base/base.html" %} 
+  {% block title %} Ajaali Flights {%endblock %} 
+{% block additional_head %}
+
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css"
+/>
+
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+<script src="/static/js/swap-locations.js"></script>
+<script src="/static/js/date-picker.js"></script>
+<script src="/static/js/checkbox.js"></script>
+<script src="/static/js/dropdown-menu.js"></script>
+
+<script>
+  document.addEventListener("alpine:init", () => {
+    Alpine.data("formData", () => ({
+      search: {
+        departure: "{{ search.departure }}",
+        destination: "{{ search.destination }}",
+        flight_type: "{{ search.flight_type }}",
+        passengers: "{{ search.passengers }}",
+        flight_class: "{{ search.flight_class }}",
+        departure_date: "{{ search.departure_date }}",
+        return_date: "{{ search.return_date }}",
+      },
+      filters: {
+        stops: "{{ filters.stops }}",
+        airlines: "{{ filters.airlines }}",
+      },
+    }));
+  });
+
+</script>
+
+{% endblock %} {% block content %}
+
+  <form
+    x-data="formData"
+    id="searchForm"
+    hx-swap="innerHtml"
+    hx-post="/search"
+    hx-target="#flightResults"
+    hx-trigger="change delay:500ms, keydown[enter]"
+  >
+      {% include "partials/search-flights/search-form.html" %} 
+      {% include "partials/search-flights/flights-filters.html" %}
+      {% include "partials/search-flights/flights-result.html" %} 
+  </form>
+
+
+{% endblock %}

@@ -1,0 +1,82 @@
+<section id="searchFlights" class="content-center">
+  <div class="flex space-x-3">
+    <button type="button" id="flightType" class="flex items-center py-1 px-2 rounded-md text-sm hover:bg-gray-100">
+      <img src="/static/icons/arrows-right-left.svg" alt="flight_type" class="size-4" />
+      <span x-text="search.flight_type" class="mx-2"></span>
+      <img src="/static/icons/down.svg" alt="Menu" class="size-5" />
+    </button>
+
+    <button type="button" id="flightPassengers"
+      class="flex items-center py-1 px-2 rounded-md text-sm hover:bg-gray-100 mx-3">
+      <img src="/static/icons/user.svg" alt="passengers" class="size-4" />
+      <span x-text="search.passengers" class="mx-2"></span>
+      <img src="/static/icons/down.svg" alt="Menu" class="size-5" />
+    </button>
+
+    <button type="button" id="flightClass" class="flex items-center py-1 px-2 rounded-md text-sm hover:bg-gray-100">
+      <span x-text="search.flight_class" class="mr-2"></span>
+      <img src="/static/icons/down.svg" alt="Menu" class="size-5" />
+    </button>
+  </div>
+
+  <div id="flightLocations" x-data="swapLocations(  search )" class="flex items-center mt-2 relative text-lg">
+    <div id="flightDeparture" class="flex grow h-14 px-5 items-center rounded-md border border-gray-200">
+      <img src="/static/icons/stop-circle.svg" alt="Menu" class="size-6 mr-3" />
+      <input id="departure" name="departure" x-model="search.departure" type="text" placeholder="Departure"
+        class="grow focus:outline-none" />
+    </div>
+    <div class="flex z-20 bg-white ">
+
+    <button type="button" id="swapButton" @click.prevent="swap" hx-trigger="click" hx-post="/search"
+      hx-target="#flightResults"
+      class="flex z-10 -mx-4 size-10 items-center justify-center rounded-full border border-gray-200 bg-white shadow hover:bg-gray-100">
+      <img src="/static/icons/arrows-right-left.svg" alt="switch" class="size-5" />
+    </button>
+  </div>
+
+    <div id="flightDestination" class="flex h-14 px-5 grow items-center rounded-md border border-gray-200">
+      <img src="/static/icons/map-pin.svg" alt="destination" class="size-6 mr-3" />
+      <input id="destination" name="destination" x-model="search.destination" type="text" placeholder="Destination"
+        class="grow focus:outline-none" />
+    </div>
+  </div>
+
+  <div id="flightDates" class="flex items-center mt-3 rounded-md border border-gray-200 text-lg">
+    <div x-ref="calendar" x-data="datePicker(search.departure_date)"
+      class="relative flex w-1/2 h-14 items-center rounded-md">
+      <img src="/static/icons/calendar-days.svg" alt="Calendar" class="ml-4 size-6" />
+      <span x-text="formattedDate" class="flex-grow px-4 cursor-pointer" @click="toggleCalendar() "></span>
+      <input id="departure_date" name="departure_date" x-model="search.departure_date" type="text" x-ref="flatpickr"
+        class="hidden" />
+
+      <button type="button" @click.prevent="prevDay" hx-trigger="click delay:500ms" hx-post="/search"
+        hx-target="#flightResults" class="w-6 h-14 flex items-center justify-center hover:bg-gray-100">
+        <img src="/static/icons/chevron-left.svg" alt="Prev" class="size-5" />
+      </button>
+
+      <button type="button" @click.prevent="nextDay" hx-trigger="click delay:500ms" hx-post="/search"
+        hx-target="#flightResults" class="w-6 h-14 flex items-center justify-center hover:bg-gray-100">
+        <img src="/static/icons/chevron-right.svg" alt="Next" class="size-5" />
+      </button>
+    </div>
+
+    <hr class="h-10 w-0.5 bg-neutral-200 dark:bg-black/10 border-t-0" />
+
+    <div x-ref="calendar" x-data="datePicker(search.return_date)"
+      class="relative flex w-1/2 h-12 items-center rounded-md">
+      <span x-text="formattedDate" class="flex-grow px-4 cursor-pointer" @click="toggleCalendar() "></span>
+      <input id="return_date" name="return_date" x-model="search.return_date" type="text" x-ref="flatpickr"
+        class="hidden" />
+
+      <button type="button" @click.prevent="prevDay" hx-trigger="click delay:500ms" hx-post="/search"
+        hx-target="#flightResults" class="w-6 h-12 flex items-center justify-center hover:bg-gray-100">
+        <img src="/static/icons/chevron-left.svg" alt="Prev" class="size-5" />
+      </button>
+
+      <button type="button" @click.prevent="nextDay" hx-trigger="click delay:500ms" hx-post="/search"
+        hx-target="#flightResults" class="w-6 h-12 flex items-center justify-center hover:bg-gray-100">
+        <img src="/static/icons/chevron-right.svg" alt="Next" class="size-5" />
+      </button>
+    </div>
+  </div>
+</section>

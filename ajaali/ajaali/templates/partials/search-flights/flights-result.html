@@ -1,0 +1,44 @@
+<script>
+    history.pushState(null,"","{{ new_url }}")
+</script>
+
+<section id="flightResults">
+    {% if flights %} 
+        {% include "partials/search-flights/flights-sort.html" %}
+             
+        <h5 class="text-sm my-4 text-gray-600">
+            Ranked based on 
+            {% if sort == "Top flights" %}
+                <span>price and convenience.</span>
+            {% else %}
+                <span>{{ sort }}.</span>
+            {% endif %}
+            Prices include required taxes + fees for 1 adult. Optional charges and <u>bag frees</u> may apply.
+            <u>Passenger assistance info.</u>
+        </h5>            
+
+        <ul class="border border-gray-200 rounded-lg">
+            {% for flight in flights[:5] %}
+                    {% include "partials/search-flights/flight-details.html" %}
+            {% endfor %}
+        </ul>
+
+        <h2 class="text-xl font-bold my-5">Other departing flights</h2>
+
+        <ul class="border border-gray-200 rounded-lg">
+            {% for flight in flights[6:20] %}
+                {% include "partials/search-flights/flight-details.html" %}
+            {% endfor %}
+
+            <ul id="moreResults">
+
+                {% if len_flights >= 20 %}
+                    {% include "partials/search-flights/more-results.html" %}
+                {% endif %}
+            </ul>
+
+        </ul>
+
+               
+    {% endif %}
+</section>

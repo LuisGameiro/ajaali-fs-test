@@ -1,0 +1,23 @@
+<header id="header" class="fixed top-0 w-full z-50 bg-white">
+    <div class="m-4 flex items-center justify-center">
+        <button type="button"  class="size-9 p-0 rounded-full  flex items-center justify-center bg-white-500 hover:bg-gray-100">
+            <img src="/static/icons/bars-3.svg" alt="Menu" class="size-6 ">
+        </button>
+
+        <div class=" flex grow items-center">
+            <h1 class="ml-2 font-semibold text-gray-600  text-2xl">Ajaali Flights</h1>
+        </div>
+
+        <button type="button" >
+            <div class="size-9 p-0 rounded-full flex items-center justify-center text-lg text-white bg-purple-600">
+                {% if user.photo %}
+                    <img src="{{ user.photo }}" alt="{{ user.username }}" class="w-full h-full rounded-full object-cover">
+                {% else %}
+                    {{ user.username[0] }}
+                {% endif %}
+            </div>
+        </button>
+    </div>
+
+    <hr class="h-0.5 border-t-0 bg-neutral-200 dark:bg-black/10"/>
+</header>

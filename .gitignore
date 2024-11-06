@@ -1,0 +1,34 @@
+# Python specific files
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.env
+.venv
+env/
+venv/
+ENV/
+venv.bak/
+.Python
+
+# vscode
+.vscode/
+
+# JavaScript specific files
+node_modules/
+npm-debug.log
+yarn-error.log
+dist/
+build/
+*.log
+*.tsbuildinfo
+
+# aws
+*.js
+!jest.config.js
+*.d.ts
+node_modules
+
+# CDK asset staging directory
+.cdk.staging
+cdk.out

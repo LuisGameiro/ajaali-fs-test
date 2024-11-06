@@ -1,0 +1,51 @@
+<section id="flights-sort">
+  <div class="flex justify-between my-2">
+    <h2 class="text-xl font-bold">Top departing options</h2>
+
+    <div x-data="dropdownButton" x-id="['sort']" x-on:keydown.escape.prevent.stop="close($refs.button)"
+      x-on:focusin.window="!$refs.panel.contains($event.target) && close()" class="relative">
+      <button type="button"  x-ref="button" x-on:click="toggle()" 
+        class="flex items-center py-1 px-3 rounded-2xl hover:bg-blue-50 text-blue-400 text-md font-semibold">
+        <p>Sort by: <span>{{ sort }}</span></p>
+
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="size-5">
+          <rect x="0" fill="none" width="24" height="24"/>
+          <path d="M7 10l5 5 5-5" stroke="currentColor" fill="currentColor"/>
+        </svg>
+      </button>
+
+      <div x-ref="panel" x-show="open" x-transition.origin.top.left x-on:click.outside="close($refs.button)"
+        :id="$id('dropdown-button')" style="display: none"
+        class="absolute w-80 right-0 top-10 p-4 rounded-lg bg-white shadow-xl border border-gray-200">
+        <div x-data="{ selected: '{{ sort }}' }" >
+          <div class="space-y-4">
+            <div class="custom-radio">
+              <input type="radio" id="top-flights" name="sort" value="Top flights" x-model="selected"/>
+              <label for="top-flights">Top flights</label>
+            </div>
+            <div class="custom-radio">
+              <input type="radio" id="price" name="sort" value="Price" x-model="selected"/>
+              <label for="price">Price</label>
+            </div>
+            <div class="custom-radio">
+              <input type="radio" id="departure-time" name="sort" value="Departure time" x-model="selected"/>
+              <label for="departure-time">Departure time</label>
+            </div>
+            <div class="custom-radio">
+              <input type="radio" id="arrival-time" name="sort" value="Arrival time" x-model="selected"/>
+              <label for="arrival-time">Arrival time</label>
+            </div>
+            <div class="custom-radio">
+              <input type="radio" id="duration" name="sort" value="Duration" x-model="selected"/>
+              <label for="duration">Duration</label>
+            </div>
+            <div class="custom-radio">
+              <input type="radio" id="emissions" name="sort" value="Emissions" x-model="selected"/>
+              <label for="emissions">Emissions</label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

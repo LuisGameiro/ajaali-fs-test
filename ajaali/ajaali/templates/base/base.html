@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>{% block title %}Ajaali{% endblock %}</title>
+
+  <!--Tailwind -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Alpine Core -->
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.1/dist/cdn.min.js"></script>
+
+  <!-- HTMX -->
+  <script defer src="/static/js/htmx.min.js?v=1.5.0"></script>
+
+  <link rel="stylesheet" href="/static/css/styles.css"/>
+
+ 
+  {% block additional_head %}
+
+  {% endblock %}
+</head>
+
+<body>
+  {% include "partials/base/header.html" %}
+
+  <section id="page" class="pt-24 pb-8 mx-8 md:mx-16 lg:mx-32 text-black-700 font-sans">
+    {% block content %} 
+    {% endblock %}
+  </section>
+</body>
+
+</html>
+

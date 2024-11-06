@@ -1,0 +1,19 @@
+{% if moreFlights %} 
+
+    {% for flight in moreFlights %}
+        {% include "partials/search-flights/flight-details.html" %}
+    {% endfor %} 
+
+{% else %}
+
+    <button hx-swap="outerHtml" hx-post="/more-flights" hx-target="#moreResults"
+        hx-trigger="click" class="flex w-full items-center py-6 border border-gray-200 rounded-b-lg">
+        <div class="w-1/12 mx-2 flex items-center justify-center">
+            <div type="button" class="size-9 rounded-full flex items-center">
+                <img src="/static/icons/chevron-down.svg" alt="moreInfo" class="size-8" />
+            </div>
+        </div>
+        <h3 class="font-semibold">{{ len_flights - 20 }} more flights</h3>
+    </button>
+
+{% endif %}

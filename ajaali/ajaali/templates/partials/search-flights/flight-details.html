@@ -1,0 +1,49 @@
+
+<li class="flex justify-between items-center py-4 border border-gray-200 ">
+    <div class="w-1/12 p-4">
+        <img src="/static/images/{{ flight.airline.replace(' ','') }}.jpg" alt="Airline Logo" class="w-full h-auto" />
+    </div>
+
+    <div class="flex-col grow mx-4">
+        <div class="flex justify-between">
+            <h3 class="font-semibold text-lg">
+                {{ flight.departure_dt.strftime('%H:%M') }} – {{ flight.arrival_dt.strftime('%H:%M') }}
+            </h3>
+
+            <h3 class="font-semibold text-lg">£{{ flight.price }}</h3>
+        </div>
+
+        <div class="flex justify-between text-md text-gray-500">
+            <p>{{ flight.source[0:3].upper() }}–{{ flight.sink[0:3].upper() }}</p>
+            <p>Round trip</p>
+        </div>
+
+        <div class="flex justify-between text-sm text-gray-500">
+            <p>
+                <span>
+                    {% if flight.number_of_stops == 0 %}
+                        Non-stop
+                    {% else %}
+                        {{ flight.number_of_stops }} stops
+                    {% endif %}
+                </span>
+                <span>•</span>
+                <span>
+                    {{ (flight.arrival_dt - flight.departure_dt).seconds // 3600 }}h
+                    {{ ((flight.arrival_dt - flight.departure_dt).seconds // 60) % 60 }}m
+                </span>
+                <span>•</span>
+                <span>
+                    {{ flight.airline.title() }}
+                </span>
+            </p>
+            <p>+{{ flight.emissions }}% emissions</p>
+        </div>
+    </div>
+
+    <div class="w-1/12 flex items-center justify-center">
+        <button type="button" class="size-7 rounded-full flex items-center justify-center hover:bg-gray-100">
+            <img src="/static/icons/chevron-down.svg" alt="moreInfo" class="size-5" />
+        </button>
+    </div>
+</li>

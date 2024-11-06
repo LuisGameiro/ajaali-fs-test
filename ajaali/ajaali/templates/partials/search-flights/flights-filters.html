@@ -1,0 +1,135 @@
+<section id="filters" class="my-2">
+  <div class="flex items-center py-1 overflow-x-auto space-x-2 font-semibold" style="scrollbar-color: #fff transparent">
+    <button type="button"
+      class="flex items-center justify-center flex-shrink-0 py-1 px-2 rounded-2xl text-blue-400 hover:bg-blue-50">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+        class="size-5">
+        <path stroke-linecap="round" stroke-linejoin="round"
+          d="M10.5 6h9.75M10.5 6a1.5 1.5 0 1 1-3 0m3 0a1.5 1.5 0 1 0-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-9.75 0h9.75" />
+      </svg>
+      <p class="ml-2 color-blue-700">All filters</p>
+    </button>
+
+
+    <div x-data="dropdownButton" x-id="['stops']" x-on:keydown.escape.prevent.stop="close($refs.button)"
+      class="flex-shrink-0">
+      <button type="button" x-ref="button" x-on:click="toggle()"
+        class="flex items-center justify-center flex-shrink-0 py-1 px-2 rounded-lg border border-gray-200 hover:bg-gray-100">
+        <p class="mx-1">Stops</p>
+        <img src="/static/icons/down.svg" alt="Menu" class="size-5" />
+      </button>
+
+      <div x-ref="panel" x-show="open" x-transition.origin.top.left x-on:click.outside="close($refs.button)"
+        :id="$id('stops-filter')" style="display: none"
+        class="absolute w-80 mt-2 left-auto top-auto  p-5 rounded-lg bg-white shadow-xl border border-gray-200">
+        <div x-data="{ selected: '{{ filters.stops }}' }">
+          <div class="flex items-center justify-between">
+            <h2 class="text-lg font-semibold">Stops</h2>
+            <button x-on:click.prevent="close()">
+              <img src="/static/icons/cross.svg" alt="Close" class="flex size-6" />
+            </button>
+          </div>
+          <div class="p-4 space-y-6 font-normal">
+            <div class="flex items-center">
+              <input id="stopsAll" type="radio" name="stops" value="None" x-model="selected" />
+              <label for="stopsAll" class="ml-2">Any number of stops</label>
+            </div>
+            <div class="flex items-center">
+              <input id="stops0" type="radio" name="stops" value="0" x-model="selected" />
+              <label for="stops0" class="ml-2">Non-stop only</label>
+            </div>
+            <div class="flex items-center">
+              <input id="stops1" type="radio" name="stops" value="1" x-model="selected" />
+              <label for="stops1" class="ml-2">One stop or fewer</label>
+            </div>
+            <div class="flex items-center">
+              <input id="stops2" type="radio" name="stops" value="2" x-model="selected" />
+              <label for="stops2" class="ml-2">Two stop or fewer</label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div x-data="dropdownButton" x-id="['airlines']" x-on:keydown.escape.prevent.stop="close($refs.button)"
+      class="flex-shrink-0">
+      <button type="button" x-ref="button" x-on:click="toggle()"
+        class="flex items-center justify-center flex-shrink-0 py-1 px-2 rounded-lg border border-gray-200 hover:bg-gray-100">
+        <p class="mx-1">Airlines</p>
+        <img src="/static/icons/down.svg" alt="Menu" class="size-5" />
+      </button>
+
+      <div x-ref="filterPanel" x-show="open" x-transition.origin.top.left x-on:click.outside="close($refs.button)"
+        :id="$id('airlines-filter')" style="display: none"
+        class="absolute w-80 mt-2 left-auto top-auto p-5 rounded-lg bg-white shadow-xl border border-gray-200">
+        <div x-data="checkbox('{{ filters.airlines }}')">
+          <div class="flex justify-between">
+            <h2 class="text-lg font-semibold">Airlines</h2>
+            <button x-on:click.prevent="close()">
+              <img src="/static/icons/cross.svg" alt="Close" class="flex size-6" />
+            </button>
+          </div>
+          <div class="p-4 space-y-6 font-normal">
+            <div class="flex items-center">
+              <input id="airline1" type="checkbox" name="airlines" value="BRITISH AIRWAYS" x-model="selected" />
+              <label for="airline1" class="ml-2">British Airways</label>
+            </div>
+            <div class="flex items-center">
+              <input id="airline2" type="checkbox" name="airlines" value="EASYJET" x-model="selected" />
+              <label for="airline2" class="ml-2">Easyjet</label>
+            </div>
+            <div class="flex items-center">
+              <input id="airline3" type="checkbox" name="airlines" value="KLM" x-model="selected" />
+              <label for="airline3" class="ml-2">KLM</label>
+            </div>
+            <div class="flex items-center">
+              <input id="airline4" type="checkbox" name="airlines" value="WIZZ AIR" x-model="selected" />
+              <label for="airline4" class="ml-2">Wizz Air</label>
+            </div>
+          </div>
+
+          <button type="button" @click="clearSelection" hx-trigger="click delay:500ms" hx-post="/search"
+          hx-target="#flightResults" class="flex text-md self-end text-gray-400 ml-auto font-normal">
+            Clear
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <button type="button"
+      class="flex items-center justify-center flex-shrink-0 py-1 px-2 rounded-lg border border-gray-200 hover:bg-gray-100">
+      <p class="mx-1">Bags</p>
+      <img src="/static/icons/down.svg" alt="Menu" class="size-5" />
+    </button>
+
+    <button type="button"
+      class="flex items-center justify-center flex-shrink-0 py-1 px-2 rounded-lg border border-gray-200 hover:bg-gray-100">
+      <p class="mx-1">Price</p>
+      <img src="/static/icons/down.svg" alt="Menu" class="size-5" />
+    </button>
+
+    <button type="button"
+      class="flex items-center justify-center flex-shrink-0 py-1 px-2 rounded-lg border border-gray-200 hover:bg-gray-100">
+      <p class="mx-1">Times</p>
+      <img src="/static/icons/down.svg" alt="Menu" class="size-5" />
+    </button>
+
+    <button type="button"
+      class="flex items-center justify-center flex-shrink-0 py-1 px-2 rounded-lg border border-gray-200 hover:bg-gray-100">
+      <p class="mx-1">Emissions</p>
+      <img src="/static/icons/down.svg" alt="Menu" class="size-5" />
+    </button>
+
+    <button type="button"
+      class="flex items-center justify-center flex-shrink-0 py-1 px-2 rounded-lg border border-gray-200 hover:bg-gray-100">
+      <p class="mx-1">Connecting airports</p>
+      <img src="/static/icons/down.svg" alt="Menu" class="size-5" />
+    </button>
+
+    <button type="button"
+      class="flex items-center justify-center flex-shrink-0 py-1 px-2 rounded-lg border border-gray-200 hover:bg-gray-100">
+      <p class="mx-1">Duration</p>
+      <img src="/static/icons/down.svg" alt="Menu" class="size-5" />
+    </button>
+  </div>
+</section>
